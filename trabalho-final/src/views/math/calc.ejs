@@ -1,0 +1,21 @@
+<%- contentFor('body') %>
+<div class="jumbotron text-center">
+    <div id="page-wrapper">
+        <h1>Testando o protocolo Websocket</h1>
+  
+        <div id="status">Conectando...</div>
+  
+        <ul id="messages"></ul>
+  
+        <form id="message-form" action="#" method="post">
+          <textarea
+            id="message"
+            placeholder="Escreva uma mensagem para enviar via WebSocket..."
+            required
+          ></textarea>
+          <button type="submit">Enviar mensagem</button>
+          <button type="button" id="close">Finalizar conexão</button>
+        </form>
+    </div>
+</div>
+<script src="/static/js/calc.js"></script>

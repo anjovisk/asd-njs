@@ -1,0 +1,1 @@
+alert('entrou no teste.js');
