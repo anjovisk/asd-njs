@@ -53,7 +53,9 @@ function connect() {
   let socketStatus = document.getElementById("status");
 
   // Cria um novo socket.
-  socket = new WebSocket("ws://localhost:3000/math");
+  let protocol = window.location.protocol == 'http:' ? 'ws' : 'wss';
+  let url = `${protocol}://${window.location.hostname}:${window.location.port}${window.location.pathname}`;
+  socket = new WebSocket(url);
 
   // Função para tratar os erros que podem ocorrer
   socket.onerror = function (error) {
