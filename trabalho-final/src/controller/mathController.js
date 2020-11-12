@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const math = require('../Math');
 const operations = [{
     key: "sum",
@@ -23,9 +24,22 @@ module.exports = function init(app) {
     app.ws('/math', function(ws, req) {
         console.log("Conexão estabelecida - ws math");
         ws.on("message", (message) => {
-            console.log("Mensagem recebida: ", message);
-            ws.send("Echo 1: " + message);
-            ws.send("Echo 2: " + message);
+            console.log(message);
+            let payload = JSON.parse(message);
+            try {
+                let result = math[payload.operation](payload.x, payload.y);
+                console.log(`${payload.x} ${payload.operation} ${payload.y} = ${result}`);
+                ws.send(`{
+                    "x": ${payload.x},
+                    "y": ${payload.y},
+                    "operation": "${payload.operation}",
+                    "result": ${result}
+                }`);
+            } catch (error) {
+                ws.send(`{
+                    "error": "${error.message}"
+                }`);
+            }
         });
     });
     app.get('/math', (req, res) => {

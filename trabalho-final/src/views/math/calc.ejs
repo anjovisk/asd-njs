@@ -1,20 +1,28 @@
 <%- contentFor('body') %>
 <div class="jumbotron text-center">
     <div id="page-wrapper">
-        <h1>Testando o protocolo Websocket</h1>
+        <h1>Operações matemáticas - WebSocket</h1>
   
         <div id="status">Conectando...</div>
   
         <ul id="messages"></ul>
   
         <form id="message-form" action="#" method="post">
-          <textarea
-            id="message"
-            placeholder="Escreva uma mensagem para enviar via WebSocket..."
-            required
-          ></textarea>
+          <label for="operation">Operação:</label>
+          <select id="operation">
+            <%
+              for ( var i = 0; i < operations.length; i++ ) {
+                var selected = ( operations[i].key == 'sum' ) ? "selected" : "";
+                %><option value="<%=operations[i].key %>" <%=selected %>><%=operations[i].label %></option><%
+              }
+            %>
+          </select>
+          <label for="number1">Valor 1:</label>
+          <input type="number" id="number1" placeholder="informe um número..." required/>
+          <label for="number2">Valor 2:</label>
+          <input type="number" id="number2" placeholder="informe um número..." required/>
           <button type="submit">Enviar mensagem</button>
-          <button type="button" id="close">Finalizar conexão</button>
+          <button type="button" id="connection">Conectar/Desconectar</button>
         </form>
     </div>
 </div>
